@@ -18,12 +18,16 @@ class VisitorController extends Controller
             'name' => 'required|string|max:255',
             'school_origin' => 'required|string|max:255',
             'class' => 'required|string|max:255',
+            'phone' => 'required|numeric|min:10',
+            'dream_major' => 'nullable|string|max:255',
         ]);
 
         Visitor::create([
             'name' => $validated['name'],
             'school_origin' => $validated['school_origin'],
             'class' => $validated['class'],
+            'phone' => $validated['phone'],
+            'dream_major' => $validated['dream_major'] ?? null,
             'visited_at' => now(),
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),

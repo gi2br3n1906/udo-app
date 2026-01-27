@@ -10,6 +10,8 @@ class Visitor extends Model
         'name',
         'school_origin',
         'class',
+        'phone',
+        'dream_major',
         'visited_at',
         'ip_address',
         'user_agent',

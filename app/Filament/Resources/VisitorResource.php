@@ -46,6 +46,13 @@ class VisitorResource extends Resource
                     ->sortable(),
                 TextColumn::make('class')
                     ->searchable(),
+                TextColumn::make('phone')
+                    ->label('WhatsApp')
+                    ->searchable(),
+                TextColumn::make('dream_major')
+                    ->label('Dream Major')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('visited_at')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
@@ -81,6 +88,8 @@ class VisitorResource extends Resource
                                 Column::make('name')->heading('Name'),
                                 Column::make('school_origin')->heading('School'),
                                 Column::make('class')->heading('Class'),
+                                Column::make('phone')->heading('WhatsApp Number'),
+                                Column::make('dream_major')->heading('Dream Major'),
                                 Column::make('visited_at')->heading('Registered At'),
                             ]),
                     ]),

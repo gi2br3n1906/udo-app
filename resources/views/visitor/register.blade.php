@@ -63,6 +63,40 @@
                 @enderror
             </div>
 
+            <!-- Phone (WhatsApp) -->
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                    No. WhatsApp <span class="text-red-500">*</span>
+                </label>
+                <p class="text-xs text-gray-500 mb-2">Wajib untuk info doorprize/beasiswa</p>
+                <input type="number"
+                       id="phone"
+                       name="phone"
+                       value="{{ old('phone') }}"
+                       required
+                       placeholder="Contoh: 081234567890"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('phone') border-red-500 @enderror">
+                @error('phone')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Dream Major -->
+            <div>
+                <label for="dream_major" class="block text-sm font-medium text-gray-700 mb-2">
+                    Jurusan Impian <span class="text-gray-400">(Opsional)</span>
+                </label>
+                <input type="text"
+                       id="dream_major"
+                       name="dream_major"
+                       value="{{ old('dream_major') }}"
+                       placeholder="Contoh: Teknik Informatika"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('dream_major') border-red-500 @enderror">
+                @error('dream_major')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Submit Button -->
             <div class="pt-4">
                 <button type="submit"
