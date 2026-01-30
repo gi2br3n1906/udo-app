@@ -41,7 +41,7 @@ class UniversityResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn (string $operation, $state, Set $set) =>
+                    ->afterStateUpdated(fn (string $operation, $state, $set) =>
                         $operation === 'create' ? $set('slug', Str::slug($state)) : null
                     ),
                 TextInput::make('slug')
