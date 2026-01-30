@@ -10,6 +10,23 @@
             <p class="text-gray-600">Silakan isi data diri Anda untuk melanjutkan kunjungan</p>
         </div>
 
+        {{-- Global Error Alert --}}
+        @if ($errors->any())
+            <div class="mb-6 bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg text-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                    </svg>
+                    <span class="font-semibold">Oops! Ada yang perlu diperbaiki:</span>
+                </div>
+                <ul class="list-disc list-inside space-y-1 ml-1">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('visitor.store') }}" class="space-y-6">
             @csrf
 
@@ -46,34 +63,19 @@
                 @enderror
             </div>
 
-            <!-- Class -->
-            <div>
-                <label for="class" class="block text-sm font-medium text-gray-700 mb-2">
-                    Kelas <span class="text-red-500">*</span>
-                </label>
-                <input type="text"
-                       id="class"
-                       name="class"
-                       value="{{ old('class') }}"
-                       required
-                       placeholder="Contoh: XII IPA 1"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('class') border-red-500 @enderror">
-                @error('class')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
             <!-- Phone (WhatsApp) -->
             <div>
                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
                     No. WhatsApp <span class="text-red-500">*</span>
                 </label>
                 <p class="text-xs text-gray-500 mb-2">Wajib untuk info doorprize/beasiswa</p>
-                <input type="number"
+                <input type="text"
                        id="phone"
                        name="phone"
                        value="{{ old('phone') }}"
                        required
+                       inputmode="numeric"
+                       pattern="[0-9]*"
                        placeholder="Contoh: 081234567890"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('phone') border-red-500 @enderror">
                 @error('phone')

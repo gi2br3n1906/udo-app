@@ -45,6 +45,7 @@ class SponsorResource extends Resource
                         'Platinum' => 'Platinum',
                         'Gold' => 'Gold',
                         'Silver' => 'Silver',
+                        'Bronze' => 'Bronze',
                         'Media Partner' => 'Media Partner',
                     ]),
             ]);
@@ -66,7 +67,9 @@ class SponsorResource extends Resource
                         'Platinum' => 'gray',
                         'Gold' => 'warning',
                         'Silver' => 'info',
+                        'Bronze' => 'danger',
                         'Media Partner' => 'success',
+                        default => 'gray',
                     })
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -80,6 +83,7 @@ class SponsorResource extends Resource
                         'Platinum' => 'Platinum',
                         'Gold' => 'Gold',
                         'Silver' => 'Silver',
+                        'Bronze' => 'Bronze',
                         'Media Partner' => 'Media Partner',
                     ]),
             ])

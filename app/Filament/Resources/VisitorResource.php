@@ -44,8 +44,6 @@ class VisitorResource extends Resource
                     ->label('School')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('class')
-                    ->searchable(),
                 TextColumn::make('phone')
                     ->label('WhatsApp')
                     ->searchable(),
@@ -87,7 +85,6 @@ class VisitorResource extends Resource
                             ->withColumns([
                                 Column::make('name')->heading('Name'),
                                 Column::make('school_origin')->heading('School'),
-                                Column::make('class')->heading('Class'),
                                 Column::make('phone')->heading('WhatsApp Number'),
                                 Column::make('dream_major')->heading('Dream Major'),
                                 Column::make('visited_at')->heading('Registered At'),

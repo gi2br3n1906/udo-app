@@ -18,8 +18,10 @@ class VisitorExporter extends Exporter
                 ->label('Name'),
             ExportColumn::make('school_origin')
                 ->label('School Origin'),
-            ExportColumn::make('class')
-                ->label('Class'),
+            ExportColumn::make('phone')
+                ->label('WhatsApp Number'),
+            ExportColumn::make('dream_major')
+                ->label('Dream Major'),
             ExportColumn::make('visited_at')
                 ->label('Registered At'),
         ];

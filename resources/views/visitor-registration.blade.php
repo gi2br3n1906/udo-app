@@ -47,34 +47,53 @@
                 <p class="text-slate-400 text-lg">Gateway to University Day's Out</p>
             </div>
 
+            {{-- Global Error Alert --}}
+            @if ($errors->any())
+                <div class="mb-6 bg-red-900/50 border border-red-500/50 text-red-200 p-4 rounded-2xl text-sm">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                        </svg>
+                        <span class="font-semibold">Oops! Ada yang perlu diperbaiki:</span>
+                    </div>
+                    <ul class="list-disc list-inside space-y-1 ml-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('visitor.store') }}" method="POST" class="flex flex-col gap-5">
                 @csrf
                 
                 <div class="space-y-1">
-                    <label for="name" class="text-sm font-medium text-slate-300 ml-1">Nama Lengkap</label>
-                    <input type="text" name="name" id="name" required placeholder="John Doe"
-                        class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-white shadow-inner">
+                    <label for="name" class="text-sm font-medium text-slate-300 ml-1">Nama Lengkap <span class="text-red-400">*</span></label>
+                    <input type="text" name="name" id="name" required placeholder="John Doe" value="{{ old('name') }}"
+                        class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-white shadow-inner @error('name') border-red-500/50 ring-2 ring-red-500/30 @enderror">
                     @error('name') <span class="text-red-400 text-xs ml-1">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="school_origin" class="text-sm font-medium text-slate-300 ml-1">Asal Sekolah</label>
-                    <input type="text" name="school_origin" id="school_origin" required placeholder="SMA Negeri 1 ..."
-                        class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-white shadow-inner">
+                    <label for="school_origin" class="text-sm font-medium text-slate-300 ml-1">Asal Sekolah <span class="text-red-400">*</span></label>
+                    <input type="text" name="school_origin" id="school_origin" required placeholder="SMA Negeri 1 ..." value="{{ old('school_origin') }}"
+                        class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-white shadow-inner @error('school_origin') border-red-500/50 ring-2 ring-red-500/30 @enderror">
                     @error('school_origin') <span class="text-red-400 text-xs ml-1">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="space-y-1">
-                    <label for="class" class="text-sm font-medium text-slate-300 ml-1">Kelas</label>
-                    <select name="class" id="class" required
-                        class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white shadow-inner appearance-none cursor-pointer">
-                        <option value="" disabled selected class="text-slate-600">Pilih Kelas</option>
-                        <option value="X" class="bg-slate-900">Kelas X</option>
-                        <option value="XI" class="bg-slate-900">Kelas XI</option>
-                        <option value="XII" class="bg-slate-900">Kelas XII</option>
-                        <option value="Alumni" class="bg-slate-900">Alumni / Umum</option>
-                    </select>
-                    @error('class') <span class="text-red-400 text-xs ml-1">{{ $message }}</span> @enderror
+                    <label for="phone" class="text-sm font-medium text-slate-300 ml-1">No. WhatsApp <span class="text-red-400">*</span></label>
+                    <p class="text-xs text-slate-500 ml-1">Wajib untuk info doorprize/beasiswa</p>
+                    <input type="text" name="phone" id="phone" required placeholder="081234567890" value="{{ old('phone') }}" inputmode="numeric" pattern="[0-9]*"
+                        class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-white shadow-inner @error('phone') border-red-500/50 ring-2 ring-red-500/30 @enderror">
+                    @error('phone') <span class="text-red-400 text-xs ml-1">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="space-y-1">
+                    <label for="dream_major" class="text-sm font-medium text-slate-300 ml-1">Jurusan Impian <span class="text-slate-500">(Opsional)</span></label>
+                    <input type="text" name="dream_major" id="dream_major" placeholder="Teknik Informatika" value="{{ old('dream_major') }}"
+                        class="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-white shadow-inner @error('dream_major') border-red-500/50 ring-2 ring-red-500/30 @enderror">
+                    @error('dream_major') <span class="text-red-400 text-xs ml-1">{{ $message }}</span> @enderror
                 </div>
 
                 <button type="submit" class="mt-4 w-full bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white font-bold py-4 rounded-3xl shadow-lg shadow-purple-600/30 transform active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">

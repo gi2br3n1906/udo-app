@@ -62,7 +62,7 @@
     {{-- Interactive Map Container --}}
     <div id="map-container" class="w-full h-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl shadow-inner overflow-hidden">
         <div id="panzoom-element" class="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing">
-            <x-venue-map-svg :booths="$booths" />
+            <x-venue-map :booths="$booths" />
         </div>
     </div>
 

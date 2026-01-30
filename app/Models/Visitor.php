@@ -9,7 +9,6 @@ class Visitor extends Model
     protected $fillable = [
         'name',
         'school_origin',
-        'class',
         'phone',
         'dream_major',
         'visited_at',
