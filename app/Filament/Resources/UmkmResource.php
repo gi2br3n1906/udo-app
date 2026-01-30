@@ -23,9 +23,9 @@ class UmkmResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-shopping-bag';
 
+    protected static ?string $modelLabel = 'UMKM';
+    protected static ?string $pluralModelLabel = 'UMKM';
     protected static ?string $navigationLabel = 'UMKM';
-
-    protected static ?string $pluralLabel = 'UMKM';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -34,28 +34,32 @@ class UmkmResource extends Resource
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required()
                     ->maxLength(255),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->required()
                     ->rows(4)
                     ->columnSpanFull(),
                 Repeater::make('menu_list')
-                    ->label('Menu List')
+                    ->label('Daftar Menu')
                     ->schema([
                         TextInput::make('item')
+                            ->label('Item')
                             ->required()
                             ->maxLength(255),
                     ])
                     ->columnSpanFull()
                     ->defaultItems(1),
                 TextInput::make('price_range')
+                    ->label('Kisaran Harga')
                     ->maxLength(255)
-                    ->helperText('e.g., Rp 10.000 - Rp 50.000'),
+                    ->helperText('Contoh: Rp 10.000 - Rp 50.000'),
                 TextInput::make('map_booth_id')
-                    ->label('Map Booth ID')
+                    ->label('ID Booth Peta')
                     ->maxLength(255)
-                    ->helperText('ID that matches the SVG element (e.g., F1, F2)'),
+                    ->helperText('ID yang sesuai dengan elemen SVG (contoh: F1, F2)'),
             ]);
     }
 
@@ -65,14 +69,17 @@ class UmkmResource extends Resource
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('price_range')
+                    ->label('Kisaran Harga')
                     ->searchable(),
                 TextColumn::make('map_booth_id')
-                    ->label('Booth ID')
+                    ->label('ID Booth')
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

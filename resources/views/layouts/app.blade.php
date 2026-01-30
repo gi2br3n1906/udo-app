@@ -58,7 +58,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-colors group-active:scale-90" viewBox="0 0 24 24" fill="{{ request()->routeIs('home') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="{{ request()->routeIs('home') ? '0' : '2' }}">
                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9L12 3l8.25 6v10.5a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75V15a1.5 1.5 0 00-1.5-1.5h-3a1.5 1.5 0 00-1.5 1.5v4.5a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75V9z" />
             </svg>
-            <span class="text-[10px] font-medium">Home</span>
+            <span class="text-[10px] font-medium">Beranda</span>
         </a>
 
         <!-- Map -->
@@ -66,7 +66,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-colors group-active:scale-90" viewBox="0 0 24 24" fill="{{ request()->routeIs('map.*') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="{{ request()->routeIs('map.*') ? '0' : '2' }}">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
             </svg>
-            <span class="text-[10px] font-medium">Map</span>
+            <span class="text-[10px] font-medium">Peta</span>
         </a>
 
         <!-- Rundown -->
@@ -85,7 +85,7 @@
                      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                  </svg>
              </div>
-            <span class="text-[10px] font-medium">Me</span>
+            <span class="text-[10px] font-medium">Profil</span>
         </a>
 
     </nav>

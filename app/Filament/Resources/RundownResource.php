@@ -25,21 +25,29 @@ class RundownResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $modelLabel = 'Rundown Acara';
+    protected static ?string $pluralModelLabel = 'Rundown Acara';
+    protected static ?string $navigationLabel = 'Rundown Acara';
+
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->label('Judul')
                     ->required()
                     ->maxLength(255),
                 DateTimePicker::make('start_time')
+                    ->label('Waktu Mulai')
                     ->required()
                     ->seconds(false),
                 DateTimePicker::make('end_time')
+                    ->label('Waktu Selesai')
                     ->required()
                     ->seconds(false)
                     ->after('start_time'),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->rows(4)
                     ->columnSpanFull(),
             ]);
@@ -51,15 +59,19 @@ class RundownResource extends Resource
             ->recordTitleAttribute('title')
             ->columns([
                 TextColumn::make('title')
+                    ->label('Judul')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('start_time')
+                    ->label('Waktu Mulai')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
                 TextColumn::make('end_time')
+                    ->label('Waktu Selesai')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

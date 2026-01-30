@@ -28,11 +28,16 @@ class UniversityResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Universitas';
+    protected static ?string $pluralModelLabel = 'Universitas';
+    protected static ?string $navigationLabel = 'Universitas';
+
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -40,10 +45,12 @@ class UniversityResource extends Resource
                         $operation === 'create' ? $set('slug', Str::slug($state)) : null
                     ),
                 TextInput::make('slug')
+                    ->label('Slug')
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->rows(4)
                     ->columnSpanFull(),
                 FileUpload::make('logo_path')
@@ -52,11 +59,11 @@ class UniversityResource extends Resource
                     ->directory('universities/logos')
                     ->required(),
                 TextInput::make('map_booth_id')
-                    ->label('Map Booth ID')
+                    ->label('ID Booth Peta')
                     ->maxLength(255)
-                    ->helperText('ID that matches the SVG element (e.g., A1, B2)'),
+                    ->helperText('ID yang sesuai dengan elemen SVG (contoh: A1, B2)'),
                 TextInput::make('website_url')
-                    ->label('Website URL')
+                    ->label('URL Website')
                     ->url()
                     ->maxLength(255),
             ]);
@@ -70,14 +77,17 @@ class UniversityResource extends Resource
                 ImageColumn::make('logo_path')
                     ->label('Logo'),
                 TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('slug')
+                    ->label('Slug')
                     ->searchable(),
                 TextColumn::make('map_booth_id')
-                    ->label('Booth ID')
+                    ->label('ID Booth')
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

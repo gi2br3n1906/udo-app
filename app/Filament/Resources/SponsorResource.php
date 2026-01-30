@@ -27,11 +27,16 @@ class SponsorResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Sponsor';
+    protected static ?string $pluralModelLabel = 'Sponsor';
+    protected static ?string $navigationLabel = 'Sponsor';
+
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required()
                     ->maxLength(255),
                 FileUpload::make('logo_path')
@@ -43,6 +48,7 @@ class SponsorResource extends Resource
                     ->preserveFilenames()
                     ->required(),
                 Select::make('type')
+                    ->label('Tipe')
                     ->required()
                     ->options([
                         'Mega Platinum' => 'Mega Platinum',
@@ -63,9 +69,11 @@ class SponsorResource extends Resource
                 ImageColumn::make('logo_path')
                     ->label('Logo'),
                 TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('type')
+                    ->label('Tipe')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'Mega Platinum' => 'primary',
@@ -78,12 +86,14 @@ class SponsorResource extends Resource
                     })
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('type')
+                    ->label('Tipe')
                     ->options([
                         'Mega Platinum' => 'Mega Platinum',
                         'Platinum' => 'Platinum',

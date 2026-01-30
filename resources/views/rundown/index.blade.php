@@ -42,7 +42,7 @@
         {{-- Date Header --}}
         <div class="sticky top-20 z-10 bg-gradient-to-b from-slate-50 to-transparent pt-2 pb-3 mb-3">
             <h2 class="text-lg font-bold text-slate-800">
-                {{ \Carbon\Carbon::parse($date)->format('l, d F Y') }}
+                {{ \Carbon\Carbon::parse($date)->translatedFormat('l, d F Y') }}
             </h2>
         </div>
 

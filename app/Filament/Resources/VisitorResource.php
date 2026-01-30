@@ -24,6 +24,10 @@ class VisitorResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?string $modelLabel = 'Pengunjung';
+    protected static ?string $pluralModelLabel = 'Pengunjung';
+    protected static ?string $navigationLabel = 'Pengunjung';
+
     public static function form(Schema $schema): Schema
     {
         return $schema
@@ -38,26 +42,29 @@ class VisitorResource extends Resource
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('school_origin')
-                    ->label('School')
+                    ->label('Asal Sekolah')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('phone')
-                    ->label('WhatsApp')
+                    ->label('No. WhatsApp')
                     ->searchable(),
                 TextColumn::make('dream_major')
-                    ->label('Dream Major')
+                    ->label('Jurusan Impian')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('visited_at')
+                    ->label('Waktu Kunjungan')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
                 TextColumn::make('ip_address')
-                    ->label('IP Address')
+                    ->label('Alamat IP')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -66,9 +73,9 @@ class VisitorResource extends Resource
                 Filter::make('visited_at')
                     ->form([
                         DatePicker::make('from')
-                            ->label('From Date'),
+                            ->label('Dari Tanggal'),
                         DatePicker::make('until')
-                            ->label('Until Date'),
+                            ->label('Sampai Tanggal'),
                     ])
                     ->query(function ($query, array $data) {
                         return $query
@@ -81,13 +88,13 @@ class VisitorResource extends Resource
                     ->exports([
                         ExcelExport::make('table')
                             ->fromTable()
-                            ->withFilename(fn () => 'UDO_Visitors_' . date('Y-m-d'))
+                            ->withFilename(fn () => 'UDO_Pengunjung_' . date('Y-m-d'))
                             ->withColumns([
-                                Column::make('name')->heading('Name'),
-                                Column::make('school_origin')->heading('School'),
-                                Column::make('phone')->heading('WhatsApp Number'),
-                                Column::make('dream_major')->heading('Dream Major'),
-                                Column::make('visited_at')->heading('Registered At'),
+                                Column::make('name')->heading('Nama'),
+                                Column::make('school_origin')->heading('Asal Sekolah'),
+                                Column::make('phone')->heading('No. WhatsApp'),
+                                Column::make('dream_major')->heading('Jurusan Impian'),
+                                Column::make('visited_at')->heading('Waktu Kunjungan'),
                             ]),
                     ]),
             ])

@@ -10,7 +10,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        return view('visitor-registration');
+        return view('welcome');
     }
 
     public function store(Request $request)

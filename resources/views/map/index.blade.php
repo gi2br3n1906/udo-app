@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Interactive Venue Map')
+@section('title', 'Peta Lokasi Interaktif')
 
 @section('header-title')
     Peta Lokasi Event
@@ -18,19 +18,19 @@
         <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2">
                 <div class="w-3 h-3 bg-indigo-600 rounded"></div>
-                <span class="text-gray-700">University</span>
+                <span class="text-gray-700">Universitas</span>
             </div>
             <div class="flex items-center gap-2">
                 <div class="w-3 h-3 bg-green-500 rounded"></div>
-                <span class="text-gray-700">Stage</span>
+                <span class="text-gray-700">Panggung</span>
             </div>
             <div class="flex items-center gap-2">
                 <div class="w-3 h-3 bg-yellow-400 rounded"></div>
-                <span class="text-gray-700">Parking</span>
+                <span class="text-gray-700">Parkir</span>
             </div>
             <div class="flex items-center gap-2">
                 <div class="w-3 h-3 bg-purple-500 rounded"></div>
-                <span class="text-gray-700">Facilities</span>
+                <span class="text-gray-700">Fasilitas</span>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
 
     {{-- Instruction Hint (Show on first load) --}}
     <div id="instruction-hint" class="absolute bottom-20 left-1/2 -translate-x-1/2 z-10 bg-indigo-600 text-white px-4 py-2 rounded-full shadow-lg text-sm font-medium animate-bounce">
-        👆 Drag & pinch to zoom
+        👆 Geser & pinch untuk zoom
     </div>
 </div>
 
@@ -83,7 +83,7 @@
                 <div class="flex items-center gap-2 mb-1">
                     <span id="modal-booth-badge" class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded">BOOTH --</span>
                 </div>
-                <h3 id="modal-name" class="text-xl font-bold text-gray-800">Loading...</h3>
+                <h3 id="modal-name" class="text-xl font-bold text-gray-800">Memuat...</h3>
             </div>
         </div>
         

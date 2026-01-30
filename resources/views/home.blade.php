@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Beranda')
 
 @section('header-title')
-    Hi, {{ explode(' ', request()->cookie('visitor_name') ?? 'Guest')[0] }}!
+    Hai, {{ explode(' ', request()->cookie('visitor_name') ?? 'Pengunjung')[0] }}!
 @endsection
 
 @section('header-subtitle')
-    Let's explore the event
+    Ayo jelajahi acaranya
 @endsection
 
 @section('content')
@@ -100,7 +100,7 @@
 @endif
 
 <!-- Section C: Main Menu (Bento Grid) -->
-<h2 class="text-lg font-bold text-slate-800 mb-4 px-1">Explore</h2>
+<h2 class="text-lg font-bold text-slate-800 mb-4 px-1">Jelajahi</h2>
 <div class="grid grid-cols-2 gap-4 mb-8">
     
     <!-- Card 1: Map -->
@@ -114,8 +114,8 @@
             </svg>
         </div>
         <div>
-            <h3 class="font-bold text-slate-800 text-lg leading-tight">Venue Map</h3>
-            <span class="text-xs text-slate-400 font-medium">Find Booths</span>
+            <h3 class="font-bold text-slate-800 text-lg leading-tight">Peta Lokasi</h3>
+            <span class="text-xs text-slate-400 font-medium">Cari Booth</span>
         </div>
     </a>
 
@@ -130,8 +130,8 @@
             </svg>
         </div>
         <div>
-            <h3 class="font-bold text-slate-800 text-lg leading-tight">Campus List</h3>
-            <span class="text-xs text-slate-400 font-medium">Explore Majors</span>
+            <h3 class="font-bold text-slate-800 text-lg leading-tight">Daftar Kampus</h3>
+            <span class="text-xs text-slate-400 font-medium">Jelajahi Jurusan</span>
         </div>
     </a>
 
@@ -146,8 +146,8 @@
             </svg>
         </div>
         <div>
-            <h3 class="font-bold text-slate-800 text-lg leading-tight">Food & Bazaar</h3>
-            <span class="text-xs text-slate-400 font-medium">Jajanan & Stuff</span>
+            <h3 class="font-bold text-slate-800 text-lg leading-tight">Makanan & Bazar</h3>
+            <span class="text-xs text-slate-400 font-medium">Jajanan & Lainnya</span>
         </div>
     </a>
 
@@ -162,14 +162,14 @@
             </svg>
         </div>
         <div>
-            <h3 class="font-bold text-slate-800 text-lg leading-tight">Schedule</h3>
-            <span class="text-xs text-slate-400 font-medium">Live Events</span>
+            <h3 class="font-bold text-slate-800 text-lg leading-tight">Jadwal Acara</h3>
+            <span class="text-xs text-slate-400 font-medium">Acara Langsung</span>
         </div>
     </a>
 </div>
 
 <!-- "New on UDO" Title -->
-<h2 class="text-lg font-bold text-slate-800 mb-4 px-2">Participating Univers</h2>
+<h2 class="text-lg font-bold text-slate-800 mb-4 px-2">Universitas Peserta</h2>
 <div class="space-y-3 mb-8">
     @foreach(App\Models\University::take(3)->get() as $uni)
     <div x-data="{ 
@@ -222,8 +222,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         </div>
         <div class="text-left">
-            <span class="block text-sm font-bold text-slate-800">Vote Fave</span>
-            <span class="block text-[10px] text-slate-500">Support Uni</span>
+            <span class="block text-sm font-bold text-slate-800">Vote Favorit</span>
+            <span class="block text-[10px] text-slate-500">Dukung Kampus</span>
         </div>
     </button>
     
@@ -232,8 +232,8 @@
              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
         </div>
         <div class="text-left">
-            <span class="block text-sm font-bold text-slate-800">Partners</span>
-            <span class="block text-[10px] text-slate-500">Sponsors List</span>
+            <span class="block text-sm font-bold text-slate-800">Partner</span>
+            <span class="block text-[10px] text-slate-500">Daftar Sponsor</span>
         </div>
     </button>
 </div>
