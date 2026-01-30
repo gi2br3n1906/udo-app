@@ -37,7 +37,10 @@ class SponsorResource extends Resource
                 FileUpload::make('logo_path')
                     ->label('Logo')
                     ->image()
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
+                    ->maxSize(5120)
                     ->directory('sponsors/logos')
+                    ->preserveFilenames()
                     ->required(),
                 Select::make('type')
                     ->required()
