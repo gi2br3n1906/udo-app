@@ -45,6 +45,7 @@ class SponsorResource extends Resource
                 Select::make('type')
                     ->required()
                     ->options([
+                        'Mega Platinum' => 'Mega Platinum',
                         'Platinum' => 'Platinum',
                         'Gold' => 'Gold',
                         'Silver' => 'Silver',
@@ -67,6 +68,7 @@ class SponsorResource extends Resource
                 TextColumn::make('type')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
+                        'Mega Platinum' => 'primary',
                         'Platinum' => 'gray',
                         'Gold' => 'warning',
                         'Silver' => 'info',
@@ -83,6 +85,7 @@ class SponsorResource extends Resource
             ->filters([
                 SelectFilter::make('type')
                     ->options([
+                        'Mega Platinum' => 'Mega Platinum',
                         'Platinum' => 'Platinum',
                         'Gold' => 'Gold',
                         'Silver' => 'Silver',
