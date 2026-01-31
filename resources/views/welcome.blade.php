@@ -100,6 +100,8 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            color: white !important;
+            -webkit-text-fill-color: white;
         }
 
         .frosted-input:focus {
@@ -252,7 +254,7 @@
                                 value="{{ old('name') }}"
                                 required
                                 placeholder="Masukkan nama lengkap"
-                                class="w-full px-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300"
+                                class="w-full px-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300 appearance-none"
                             >
                         </div>
 
@@ -267,7 +269,7 @@
                                 value="{{ old('school_origin') }}"
                                 required
                                 placeholder="Contoh: SMAN 1 Jakarta"
-                                class="w-full px-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300"
+                                class="w-full px-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300 appearance-none"
                             >
                         </div>
 
@@ -284,7 +286,7 @@
                                     value="{{ old('phone') }}"
                                     required
                                     placeholder="81234567890"
-                                    class="w-full pl-12 pr-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300"
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300 appearance-none"
                                 >
                             </div>
                         </div>
@@ -299,7 +301,7 @@
                                 name="dream_major" 
                                 value="{{ old('dream_major') }}"
                                 placeholder="Contoh: Teknik Informatika"
-                                class="w-full px-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300"
+                                class="w-full px-4 py-3.5 rounded-xl frosted-input text-white placeholder-white/30 outline-none transition-all duration-300 appearance-none"
                             >
                         </div>
 
