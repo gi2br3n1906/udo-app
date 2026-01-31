@@ -69,17 +69,22 @@
 
 <!-- Section B: Gold Sponsor Ticker (Marquee) -->
 @if($goldSponsors->count() > 0)
-<div class="mb-8 relative overflow-hidden bg-white/60 backdrop-blur-sm border border-white/50 rounded-xl py-3 shadow-sm">
-    <div class="absolute left-0 top-0 bottom-0 w-8 z-10 bg-gradient-to-r from-slate-50 to-transparent"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-8 z-10 bg-gradient-to-l from-slate-50 to-transparent"></div>
+<div class="mb-8 relative overflow-hidden bg-white/50 backdrop-blur-sm border-y border-white/20 py-4 shadow-sm">
+    {{-- Fade edges for elegant look --}}
+    <div class="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none"></div>
     
-    <div class="flex animate-marquee gap-8 items-center whitespace-nowrap min-w-full">
-        <!-- Duplicate content for seamless loop -->
-        @for($i = 0; $i < 4; $i++) 
+    <div class="flex animate-marquee items-center gap-16 whitespace-nowrap px-12">
+        {{-- Duplicate content twice for seamless loop --}}
+        @for($i = 0; $i < 2; $i++) 
             @foreach($goldSponsors as $sponsor)
-                <div class="flex items-center gap-2 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100">
-                    <img src="{{ $sponsor->logo_url }}" alt="{{ $sponsor->name }}" class="h-6 w-auto object-contain">
-                    <span class="text-xs font-semibold text-slate-500 uppercase">{{ $sponsor->name }}</span>
+                <div class="flex items-center gap-3 group">
+                    <img 
+                        src="{{ $sponsor->logo_url }}" 
+                        alt="{{ $sponsor->name }}" 
+                        class="h-10 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                    >
+                    <span class="text-sm font-semibold text-slate-400 uppercase tracking-wide group-hover:text-slate-700 transition-colors duration-300">{{ $sponsor->name }}</span>
                 </div>
             @endforeach
         @endfor
@@ -92,10 +97,12 @@
         100% { transform: translateX(-50%); }
     }
     .animate-marquee {
-        animation: marquee 20s linear infinite;
+        animation: marquee 30s linear infinite;
         width: fit-content; 
     }
-    /* Ensure flex container is wide enough */
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
 </style>
 @endif
 
