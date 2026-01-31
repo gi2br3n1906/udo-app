@@ -55,6 +55,8 @@ class UniversityResource extends Resource
                     ->columnSpanFull(),
                 FileUpload::make('logo_path')
                     ->label('Logo')
+                    ->disk('public')
+                    ->visibility('public')
                     ->image()
                     ->directory('universities/logos')
                     ->required(),
