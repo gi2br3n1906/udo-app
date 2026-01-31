@@ -71,8 +71,8 @@
     </div>
 </div>
 
-<!-- Section B: Gold Sponsor Ticker (Marquee) -->
-@if($goldSponsors->count() > 0)
+<!-- Section B: Sponsor Ticker (Marquee) - ALL Sponsors -->
+@if($allSponsors->count() > 0)
 <div class="mb-8 relative w-full overflow-hidden bg-white/50 backdrop-blur-md border-y border-white/20 py-6">
     {{-- Fade edges --}}
     <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white/80 to-transparent z-10 pointer-events-none"></div>
@@ -81,7 +81,7 @@
     <div class="flex items-center w-max animate-marquee">
         {{-- First set --}}
         <div class="flex items-center gap-16 px-8 shrink-0">
-            @foreach($goldSponsors as $sponsor)
+            @foreach($allSponsors as $sponsor)
                 <img 
                     src="{{ $sponsor->logo_url }}" 
                     alt="{{ $sponsor->name }}" 
@@ -92,7 +92,7 @@
 
         {{-- Duplicate for seamless loop --}}
         <div class="flex items-center gap-16 px-8 shrink-0">
-            @foreach($goldSponsors as $sponsor)
+            @foreach($allSponsors as $sponsor)
                 <img 
                     src="{{ $sponsor->logo_url }}" 
                     alt="{{ $sponsor->name }}" 

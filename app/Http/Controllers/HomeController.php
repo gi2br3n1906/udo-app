@@ -11,9 +11,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // 1. Fetch Sponsors
-        $platinumSponsors = Sponsor::where('type', 'Platinum')->get();
-        $goldSponsors = Sponsor::where('type', 'Gold')->get();
+        // 1. Fetch ALL Sponsors (ordered by tier priority)
+        $allSponsors = Sponsor::orderByRaw("FIELD(type, 'Platinum', 'Gold', 'Silver', 'Bronze') ASC")->get();
+        $platinumSponsors = $allSponsors->where('type', 'Platinum');
 
         // 2. Get Current Live or Upcoming Event from Rundowns
         $now = Carbon::now();
@@ -100,6 +100,6 @@ class HomeController extends Controller
         // For now, let's put events first, then sponsors.
         $carouselItems = $highlights->merge($sponsorHighlights);
 
-        return view('home', compact('carouselItems', 'goldSponsors'));
+        return view('home', compact('carouselItems', 'allSponsors'));
     }
 }
