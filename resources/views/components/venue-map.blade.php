@@ -73,7 +73,13 @@
     $boothLookup = collect($booths)->keyBy('booth_id');
 @endphp
 
-<svg viewBox="-250 -150 1600 1100" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+<svg 
+    viewBox="-250 -150 1600 2600" 
+    preserveAspectRatio="xMidYMid meet"
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-full h-full block"
+    x-ref="mapSvg"
+>
     <defs>
         {{-- Gradients --}}
         <linearGradient id="stageGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -101,7 +107,7 @@
     {{-- LAYER 0: TERRACE (4-Meter Surrounding) --}}
     <g id="terrace-layer">
         {{-- Terrace Rectangle - Behind Main Hall --}}
-        <rect x="150" y="-20" width="1100" height="850" 
+        <rect x="150" y="-20" width="1100" height="950" 
               fill="#e5e7eb" 
               stroke="#9ca3af" 
               stroke-width="3" 
@@ -261,6 +267,7 @@
                 {{-- OCCUPIED BOOTH - Interactive with data --}}
                 <g id="booth-{{ $boothId }}" 
                    class="booth-interactive cursor-pointer"
+                   style="transform-box: fill-box; transform-origin: center;"
                    data-booth-id="{{ $booth['id'] }}"
                    data-booth-number="{{ $boothId }}"
                    data-booth-name="{{ $booth['name'] }}"
@@ -336,7 +343,9 @@
             @endphp
             
             {{-- UMKM BOOTH - Orange themed --}}
-            <g id="umkm-{{ $boothId }}" class="booth-interactive cursor-pointer">
+            <g id="umkm-{{ $boothId }}" 
+               class="booth-interactive cursor-pointer"
+               style="transform-box: fill-box; transform-origin: center;">
                 {{-- Booth Rectangle --}}
                 <rect x="{{ $x }}" y="{{ $y }}" 
                       width="{{ $umkmWidth }}" 
@@ -416,21 +425,70 @@
             <line x1="0" y1="{{ $i }}" x2="1200" y2="{{ $i }}" stroke="#000" stroke-width="0.5" />
         @endfor
     </g>
+
+    {{-- CONNECTING PATH (Terrace to Parking) --}}
+    <path d="M 600,930 L 600,1600" stroke="#CBD5E1" stroke-width="6" stroke-dasharray="12 8" />
+    <text x="600" y="1250" text-anchor="middle" font-size="18" font-weight="600" fill="#94a3b8">JALAN MENUJU PARKIR</text>
+
+    {{-- PARKING AREA (Yellow Zone) --}}
+    <g id="parking-area" transform="translate(0, 1600)">
+        <rect 
+            x="-150" 
+            y="0" 
+            width="1500" 
+            height="500" 
+            rx="20" 
+            fill="#FEF08A" 
+            stroke="#CA8A04" 
+            stroke-width="6" 
+            stroke-dasharray="12 6"
+        />
+        
+        <text 
+            x="600" 
+            y="260" 
+            font-family="sans-serif" 
+            font-size="50" 
+            font-weight="900" 
+            fill="#854D0E" 
+            text-anchor="middle"
+            style="text-transform: uppercase; letter-spacing: 0.1em;"
+        >
+            Area Parkir Luas
+        </text>
+
+        {{-- Left Parking Icon --}}
+        <circle cx="100" cy="250" r="50" fill="#EAB308" />
+        <text x="100" y="270" font-family="sans-serif" font-size="50" font-weight="bold" fill="white" text-anchor="middle">P</text>
+        
+        {{-- Right Parking Icon --}}
+        <circle cx="1100" cy="250" r="50" fill="#EAB308" />
+        <text x="1100" y="270" font-family="sans-serif" font-size="50" font-weight="bold" fill="white" text-anchor="middle">P</text>
+    </g>
 </svg>
 
 <style>
+    .booth-interactive {
+        transition: all 0.3s ease-out;
+    }
+    
     .booth-interactive:hover .booth-rect {
-        filter: brightness(1.4) drop-shadow(0 0 12px rgba(139, 92, 246, 0.9));
-        transform: scale(1.08);
+        filter: brightness(1.05) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        transform: scale(1.03);
+        transform-box: fill-box;
         transform-origin: center;
     }
     
     .booth-interactive:active .booth-rect {
-        filter: brightness(0.85);
-        transform: scale(0.98);
+        filter: brightness(0.98);
+        transform: scale(0.99);
+        transform-box: fill-box;
+        transform-origin: center;
     }
     
     .booth-rect {
-        transition: all 0.2s ease;
+        transition: all 0.3s ease-out;
+        transform-box: fill-box;
+        transform-origin: center;
     }
 </style>

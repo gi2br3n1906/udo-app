@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-<div class="w-full h-[calc(100vh-12rem)] relative">
+<div class="w-full h-[calc(100vh-160px)] md:h-[600px] relative -mx-5 px-0">
     
     {{-- Legend --}}
     <div class="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur rounded-xl shadow-lg p-3 text-xs">

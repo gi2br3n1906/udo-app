@@ -16,6 +16,7 @@ class University extends Model
         'map_booth_id',
         'website_url',
         'is_favorite',
+        'votes_count',
     ];
     protected function logoUrl(): \Illuminate\Database\Eloquent\Casts\Attribute
     {

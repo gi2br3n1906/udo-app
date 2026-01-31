@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rundown;
 use App\Models\Sponsor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,34 +15,73 @@ class HomeController extends Controller
         $platinumSponsors = Sponsor::where('type', 'Platinum')->get();
         $goldSponsors = Sponsor::where('type', 'Gold')->get();
 
-        // 2. Dummy Highlights (Mock Data for now)
-        // In real app, this might come from a 'Highlights' model or specific Rundown items marked as 'highlight'
-        $highlights = collect([
-            [
+        // 2. Get Current Live or Upcoming Event from Rundowns
+        $now = Carbon::now();
+        
+        // Try to find a LIVE event (start_time <= now AND end_time >= now)
+        $currentEvent = Rundown::where('start_time', '<=', $now)
+            ->where('end_time', '>=', $now)
+            ->orderBy('start_time', 'asc')
+            ->first();
+        
+        // If no live event, find the NEXT upcoming event
+        $nextEvent = null;
+        if (!$currentEvent) {
+            $nextEvent = Rundown::where('start_time', '>', $now)
+                ->orderBy('start_time', 'asc')
+                ->first();
+        }
+
+        // 3. Build Dynamic Highlights (NO DOORPRIZE)
+        $highlights = collect();
+        
+        if ($currentEvent) {
+            // CASE A: Ada acara LIVE
+            $highlights->push([
                 'type' => 'event',
-                'title' => 'Opening Ceremony',
-                'subtitle' => 'Main Hall • 08:00',
+                'title' => $currentEvent->title,
+                'subtitle' => 'Main Hall • ' . $currentEvent->start_time->format('H:i'),
                 'bg_gradient' => 'from-violet-600 to-indigo-600',
                 'icon' => 'microphone',
-                'tag' => 'Live Now'
-            ],
-            [
+                'tag' => 'Live Now',
+            ]);
+            
+            // Also show next upcoming if there's a live event
+            $upcomingAfterLive = Rundown::where('start_time', '>', $now)
+                ->orderBy('start_time', 'asc')
+                ->first();
+            
+            if ($upcomingAfterLive) {
+                $highlights->push([
+                    'type' => 'event',
+                    'title' => $upcomingAfterLive->title,
+                    'subtitle' => 'Mulai jam ' . $upcomingAfterLive->start_time->format('H:i'),
+                    'bg_gradient' => 'from-pink-500 to-rose-500',
+                    'icon' => 'clock',
+                    'tag' => 'Upcoming',
+                ]);
+            }
+        } elseif ($nextEvent) {
+            // CASE B: Ada acara UPCOMING (belum mulai)
+            $highlights->push([
                 'type' => 'event',
-                'title' => 'Guest Star Performance',
-                'subtitle' => 'Main Stage • 13:00',
-                'bg_gradient' => 'from-fuchsia-600 to-pink-600',
-                'icon' => 'star',
-                'tag' => 'Coming Soon'
-            ],
-            [
-                'type' => 'info',
-                'title' => 'Doorprize Utama',
-                'subtitle' => 'Diundi jam 15:00',
-                'bg_gradient' => 'from-emerald-500 to-teal-500',
-                'icon' => 'gift',
-                'tag' => 'Don\'t Miss'
-            ]
-        ]);
+                'title' => $nextEvent->title,
+                'subtitle' => 'Mulai jam ' . $nextEvent->start_time->format('H:i'),
+                'bg_gradient' => 'from-pink-500 to-rose-500',
+                'icon' => 'clock',
+                'tag' => 'Upcoming',
+            ]);
+        } else {
+            // CASE C: Fallback - No events (default state)
+            $highlights->push([
+                'type' => 'static',
+                'title' => "University Day's Out 2026",
+                'subtitle' => '1 Februari 2026',
+                'bg_gradient' => 'from-purple-600 to-blue-600',
+                'icon' => 'calendar',
+                'tag' => 'Coming Soon',
+            ]);
+        }
 
         // Merge Platinum Sponsors into Highlights for the Carousel
         // We map sponsors to match the highlight structure

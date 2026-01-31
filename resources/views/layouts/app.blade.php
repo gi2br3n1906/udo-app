@@ -47,8 +47,9 @@
     </header>
 
     <!-- Main Content -->
-    <main class="px-5 w-full mx-auto max-w-lg">
+    <main class="px-5 w-full mx-auto max-w-lg pb-28">
         @yield('content')
+        {{ $slot ?? '' }}
     </main>
 
     <!-- Bottom Navigation Bar (Fixed) -->
@@ -75,6 +76,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span class="text-[10px] font-medium">Rundown</span>
+        </a>
+
+        <!-- Kampus (Universities) -->
+        <a href="{{ route('universities.index') }}" class="flex flex-col items-center gap-1 p-2 group {{ request()->routeIs('universities.*') ? 'text-purple-600' : 'text-slate-400 hover:text-slate-600' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-colors group-active:scale-90" viewBox="0 0 24 24" fill="{{ request()->routeIs('universities.*') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="{{ request()->routeIs('universities.*') ? '0' : '2' }}">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.499 5.216 50.592 50.592 0 00-2.658.812m-15.482 0a50.57 50.57 0 012.658-.813m15.482 0a50.57 50.57 0 01-2.658-.812" />
+            </svg>
+            <span class="text-[10px] font-medium">Kampus</span>
         </a>
 
         <!-- Profile/Menu -->

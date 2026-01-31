@@ -36,6 +36,10 @@
                             <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 2.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
                         @elseif($item['icon'] == 'star')
                             <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        @elseif($item['icon'] == 'clock')
+                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        @elseif($item['icon'] == 'calendar')
+                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
                         @elseif($item['icon'] == 'gift')
                              <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
                         @endif
@@ -180,76 +184,38 @@
             <span class="text-xs text-slate-400 font-medium">Acara Langsung</span>
         </div>
     </a>
-</div>
 
-<!-- "New on UDO" Title -->
-<h2 class="text-lg font-bold text-slate-800 mb-4 px-2">Universitas Peserta</h2>
-<div class="space-y-3 mb-8">
-    @foreach(App\Models\University::take(3)->get() as $uni)
-    <div x-data="{ 
-        isFavorite: false,
-        toggleFavorite() {
-            fetch('/universities/{{ $uni->id }}/toggle-favorite', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    this.isFavorite = (data.status === 'added');
-                }
-            })
-            .catch(err => console.error(err));
-        }
-    }" class="relative flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
-        <a href="{{ route('universities.show', $uni->slug) }}" class="flex items-center gap-4 flex-1">
-            <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
-                 @if($uni->logo_path)
-                    <img src="{{ $uni->logo_url }}" alt="{{ $uni->name }}" class="w-full h-full object-cover">
-                 @else
-                    <span class="text-xs font-bold text-slate-400">{{ substr($uni->name, 0, 2) }}</span>
-                 @endif
-            </div>
-            <div>
-                <h3 class="font-bold text-slate-800">{{ $uni->name }}</h3>
-                <p class="text-xs text-slate-500 line-clamp-1">{{ Str::limit($uni->description, 40) }}</p>
-            </div>
-        </a>
-        
-        {{-- Heart Icon Button --}}
-        <button @click.prevent="toggleFavorite()" class="shrink-0 w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-50 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-colors" viewBox="0 0 24 24" :fill="isFavorite ? '#7c3aed' : 'none'" :stroke="isFavorite ? '#7c3aed' : 'currentColor'" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    <!-- Card 5: Vote Favorit -->
+    <a href="{{ route('vote') }}" class="col-span-1 bg-white p-5 rounded-3xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-lg transition-all active:scale-[0.98] group flex flex-col h-40 relative overflow-hidden border border-slate-100">
+        <div class="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div class="w-12 h-12 bg-pink-50 text-pink-500 rounded-2xl flex items-center justify-center mb-auto group-hover:bg-pink-500 group-hover:text-white transition-colors duration-300 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
             </svg>
-        </button>
-    </div>
-    @endforeach
-</div>
+        </div>
+        <div>
+            <h3 class="font-bold text-slate-800 text-lg leading-tight">Vote Favorit</h3>
+            <span class="text-xs text-slate-400 font-medium">Dukung Kampus</span>
+        </div>
+    </a>
 
-<!-- Section D: Secondary Actions -->
-<div class="grid grid-cols-2 gap-4">
-    <button class="flex items-center gap-3 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm active:scale-95 transition-transform">
-        <div class="w-10 h-10 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    <!-- Card 6: Partner/Sponsor -->
+    <a href="{{ route('sponsors.index') }}" class="col-span-1 bg-white p-5 rounded-3xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-lg transition-all active:scale-[0.98] group flex flex-col h-40 relative overflow-hidden border border-slate-100">
+        <div class="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-10 transition-opacity">
+            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
         </div>
-        <div class="text-left">
-            <span class="block text-sm font-bold text-slate-800">Vote Favorit</span>
-            <span class="block text-[10px] text-slate-500">Dukung Kampus</span>
+        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-auto group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+            </svg>
         </div>
-    </button>
-    
-    <button class="flex items-center gap-3 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm active:scale-95 transition-transform">
-        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <div>
+            <h3 class="font-bold text-slate-800 text-lg leading-tight">Partner</h3>
+            <span class="text-xs text-slate-400 font-medium">Daftar Sponsor</span>
         </div>
-        <div class="text-left">
-            <span class="block text-sm font-bold text-slate-800">Partner</span>
-            <span class="block text-[10px] text-slate-500">Daftar Sponsor</span>
-        </div>
-    </button>
+    </a>
 </div>
 
 @endsection

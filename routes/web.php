@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\RundownController;
+use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\UniversityController;
 use App\Http\Controllers\WelcomeController;
@@ -34,6 +35,12 @@ Route::middleware([CheckVisitorRegistration::class])->group(function () {
 
     // Event Rundown/Schedule
     Route::get('/rundown', [RundownController::class, 'index'])->name('rundown.index');
+    
+    // Sponsors
+    Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsors.index');
+    
+    // Vote Kampus Favorit
+    Route::get('/vote', App\Livewire\VotePage::class)->name('vote');
     
     // Favorites
     Route::post('/universities/{id}/toggle-favorite', [App\Http\Controllers\FavoriteController::class, 'toggle'])->name('universities.toggle-favorite');

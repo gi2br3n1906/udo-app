@@ -3,100 +3,62 @@
 @section('title', 'Katalog Universitas')
 
 @section('content')
-<div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl font-bold mb-4">Katalog Universitas</h1>
-        <p class="text-xl text-indigo-100">Jelajahi berbagai universitas yang berpartisipasi dalam UDO 2026</p>
+<div class="min-h-screen bg-gradient-to-b from-purple-50 to-white -mx-5 px-5">
+    {{-- Header Section --}}
+    <div class="mb-8 text-center pt-6">
+        <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-600 text-xs font-bold tracking-wider uppercase mb-2 inline-block">
+            Edukasi Masa Depan
+        </span>
+        <h2 class="text-3xl font-bold text-gray-900">Jelajahi Kampus</h2>
+        <p class="text-gray-500 mt-2 text-sm">Temukan universitas terbaik untuk masa depanmu</p>
     </div>
-</div>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    @if($universities->count() > 0)
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        @foreach($universities as $university)
-        <div class="relative group" x-data="{ 
-            isLiked: {{ $university->is_favorited_by_auth_user ? 'true' : 'false' }}, 
-            isLoading: false,
-            toggleFavorite() {
-                if(this.isLoading) return;
-                this.isLoading = true;
+    <div class="pb-8">
+        @if($universities->count() > 0)
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 px-2">
+            @foreach($universities as $university)
+            <a href="{{ route('universities.show', $university->slug) }}" class="group relative bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 h-full flex flex-col">
                 
-                // Optimistic UI update
-                this.isLiked = !this.isLiked;
-
-                fetch('{{ route('universities.toggle-favorite', $university->id) }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name=\'csrf-token\']').getAttribute('content')
-                    }
-                })
-                .then(res => {
-                    if (!res.ok) throw new Error('Network response was not ok');
-                    return res.json();
-                })
-                .then(data => {
-                    if(data.success) {
-                        this.isLiked = (data.status === 'attached');
-                    } else {
-                        // Revert on failure
-                        this.isLiked = !this.isLiked;
-                    }
-                }) // end then data
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Revert on error
-                    this.isLiked = !this.isLiked;
-                })
-                .finally(() => {
-                    this.isLoading = false;
-                });
-            }
-        }">
-            <!-- Favorite Heart Button -->
-            <button type="button"
-                    @click.stop.prevent="toggleFavorite()"
-                    class="absolute top-3 right-3 z-30 p-2 rounded-full bg-white/90 hover:bg-white shadow-sm hover:shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    :class="{ 'opacity-70 cursor-not-allowed': isLoading }">
-               <svg xmlns="http://www.w3.org/2000/svg" 
-                    class="h-6 w-6 transition-colors duration-300"
-                    :class="isLiked ? 'text-red-500 fill-current' : 'text-gray-400'"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-               </svg>
-            </button>
-
-            <a href="{{ route('universities.show', $university->slug) }}" class="block h-full bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200">
-                    <img src="{{ $university->logo_url }}"
-                         alt="{{ $university->name }}"
-                         class="object-contain w-full h-48 p-4">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $university->name }}</h3>
-                    <p class="text-gray-600 text-sm line-clamp-3">
-                        {{ $university->description }}
-                    </p>
-                    @if($university->map_booth_id)
-                    <div class="mt-4 text-sm text-indigo-600 font-semibold">
-                        📍 Booth {{ $university->map_booth_id }}
-                    </div>
+                {{-- Logo Container --}}
+                <div class="relative w-full aspect-[4/3] bg-gray-50 rounded-xl mb-4 flex items-center justify-center p-4 overflow-hidden group-hover:bg-purple-50 transition-colors">
+                    @if($university->logo_path)
+                        <img src="{{ $university->logo_url }}" alt="{{ $university->name }}" class="w-full h-full object-contain drop-shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    @else
+                        <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
                     @endif
                 </div>
-            </a>
-        </div>
-        @endforeach
-    </div>
 
-    <div class="mt-8">
-        {{ $universities->links() }}
+                {{-- Text Content --}}
+                <div class="text-center mt-auto">
+                    <h3 class="font-bold text-gray-800 text-sm md:text-base leading-tight group-hover:text-purple-700 transition-colors line-clamp-2">
+                        {{ $university->name }}
+                    </h3>
+                    <div class="mt-3 flex justify-center">
+                        <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest border-b border-transparent group-hover:border-purple-300 group-hover:text-purple-500 transition-all">
+                            Lihat Profil
+                        </span>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+
+        <div class="mt-8 px-2">
+            {{ $universities->links() }}
+        </div>
+        @else
+        <div class="text-center py-12">
+            <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+            </div>
+            <h3 class="font-semibold text-gray-700 mb-1 text-lg">Belum Ada Kampus</h3>
+            <p class="text-sm text-gray-400">Data kampus akan segera hadir</p>
+        </div>
+        @endif
     </div>
-    @else
-    <div class="text-center py-12">
-        <p class="text-gray-500 text-lg">Belum ada universitas yang terdaftar.</p>
-    </div>
-    @endif
 </div>
 @endsection
