@@ -69,25 +69,33 @@
 
 <!-- Section B: Gold Sponsor Ticker (Marquee) -->
 @if($goldSponsors->count() > 0)
-<div class="mb-8 relative overflow-hidden bg-white/50 backdrop-blur-sm border-y border-white/20 py-4 shadow-sm">
-    {{-- Fade edges for elegant look --}}
-    <div class="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none"></div>
-    
-    <div class="flex animate-marquee items-center gap-16 whitespace-nowrap px-12">
-        {{-- Duplicate content twice for seamless loop --}}
-        @for($i = 0; $i < 2; $i++) 
+<div class="mb-8 relative w-full overflow-hidden bg-white/50 backdrop-blur-md border-y border-white/20 py-6">
+    {{-- Fade edges --}}
+    <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white/80 to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white/80 to-transparent z-10 pointer-events-none"></div>
+
+    <div class="flex items-center w-max animate-marquee">
+        {{-- First set --}}
+        <div class="flex items-center gap-16 px-8 shrink-0">
             @foreach($goldSponsors as $sponsor)
-                <div class="flex items-center gap-3 group">
-                    <img 
-                        src="{{ $sponsor->logo_url }}" 
-                        alt="{{ $sponsor->name }}" 
-                        class="h-10 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                    >
-                    <span class="text-sm font-semibold text-slate-400 uppercase tracking-wide group-hover:text-slate-700 transition-colors duration-300">{{ $sponsor->name }}</span>
-                </div>
+                <img 
+                    src="{{ $sponsor->logo_url }}" 
+                    alt="{{ $sponsor->name }}" 
+                    class="h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 flex-shrink-0"
+                >
             @endforeach
-        @endfor
+        </div>
+
+        {{-- Duplicate for seamless loop --}}
+        <div class="flex items-center gap-16 px-8 shrink-0">
+            @foreach($goldSponsors as $sponsor)
+                <img 
+                    src="{{ $sponsor->logo_url }}" 
+                    alt="{{ $sponsor->name }}" 
+                    class="h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 flex-shrink-0"
+                >
+            @endforeach
+        </div>
     </div>
 </div>
 
@@ -98,7 +106,6 @@
     }
     .animate-marquee {
         animation: marquee 30s linear infinite;
-        width: fit-content; 
     }
     .animate-marquee:hover {
         animation-play-state: paused;
