@@ -21,16 +21,16 @@
                 <span class="text-gray-700">Universitas</span>
             </div>
             <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-orange-500 rounded"></div>
+                <span class="text-gray-700">UMKM</span>
+            </div>
+            <div class="flex items-center gap-2">
                 <div class="w-3 h-3 bg-green-500 rounded"></div>
                 <span class="text-gray-700">Panggung</span>
             </div>
             <div class="flex items-center gap-2">
                 <div class="w-3 h-3 bg-yellow-400 rounded"></div>
                 <span class="text-gray-700">Parkir</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <div class="w-3 h-3 bg-purple-500 rounded"></div>
-                <span class="text-gray-700">Fasilitas</span>
             </div>
         </div>
     </div>

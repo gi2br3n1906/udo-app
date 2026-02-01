@@ -338,31 +338,61 @@
     <g id="umkm-booths-layer">
         @foreach($umkmMap as $boothId => $coords)
             @php
+                // Try to find the UMKM booth assigned to this slot ID
+                $booth = $boothLookup->get($boothId);
                 $x = $coords['x'];
                 $y = $coords['y'];
             @endphp
             
-            {{-- UMKM BOOTH - Orange themed --}}
-            <g id="umkm-{{ $boothId }}" 
-               class="booth-interactive cursor-pointer"
-               style="transform-box: fill-box; transform-origin: center;">
-                {{-- Booth Rectangle --}}
-                <rect x="{{ $x }}" y="{{ $y }}" 
-                      width="{{ $umkmWidth }}" 
-                      height="{{ $umkmHeight }}" 
-                      rx="4" 
-                      fill="url(#umkmGradient)" 
-                      stroke="#c2410c" 
-                      stroke-width="2"
-                      class="booth-rect" />
-                
-                {{-- Booth Number (Centered) --}}
-                <text x="{{ $x + $umkmWidth/2 }}" y="{{ $y + $umkmHeight/2 + 5 }}" 
-                      text-anchor="middle" 
-                      font-size="14" 
-                      font-weight="bold" 
-                      fill="white">{{ $boothId }}</text>
-            </g>
+            @if($booth)
+                {{-- OCCUPIED UMKM BOOTH - Interactive with data --}}
+                <g id="umkm-{{ $boothId }}" 
+                   class="booth-interactive cursor-pointer hover:opacity-80 transition-all"
+                   style="transform-box: fill-box; transform-origin: center;"
+                   data-booth-id="{{ $booth['id'] }}"
+                   data-booth-number="{{ $boothId }}"
+                   data-booth-name="{{ $booth['name'] }}"
+                   data-booth-url="{{ $booth['url'] }}"
+                   onclick="window.openBoothModal({{ $booth['id'] }}, '{{ addslashes($booth['name']) }}', '{{ $boothId }}', '{{ $booth['url'] }}')">
+                    {{-- Booth Rectangle --}}
+                    <rect x="{{ $x }}" y="{{ $y }}" 
+                          width="{{ $umkmWidth }}" 
+                          height="{{ $umkmHeight }}" 
+                          rx="4" 
+                          fill="url(#umkmGradient)" 
+                          stroke="#c2410c" 
+                          stroke-width="2"
+                          class="booth-rect" />
+                    
+                    {{-- Booth Number (Centered) --}}
+                    <text x="{{ $x + $umkmWidth/2 }}" y="{{ $y + $umkmHeight/2 + 5 }}" 
+                          text-anchor="middle" 
+                          font-size="14" 
+                          font-weight="bold" 
+                          fill="white">{{ $boothId }}</text>
+                </g>
+            @else
+                {{-- EMPTY UMKM SLOT - Show placeholder --}}
+                <g id="umkm-{{ $boothId }}" 
+                   class="empty-slot">
+                    {{-- Booth Rectangle --}}
+                    <rect x="{{ $x }}" y="{{ $y }}" 
+                          width="{{ $umkmWidth }}" 
+                          height="{{ $umkmHeight }}" 
+                          rx="4" 
+                          fill="url(#umkmGradient)" 
+                          stroke="#c2410c" 
+                          stroke-width="2"
+                          class="booth-rect" />
+                    
+                    {{-- Booth Number (Centered) --}}
+                    <text x="{{ $x + $umkmWidth/2 }}" y="{{ $y + $umkmHeight/2 + 5 }}" 
+                          text-anchor="middle" 
+                          font-size="14" 
+                          font-weight="bold" 
+                          fill="white">{{ $boothId }}</text>
+                </g>
+            @endif
         @endforeach
     </g>
 
